@@ -7,6 +7,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +20,7 @@ import view.CategorieVue;
  *
  * @author Administrateur
  */
-public class ControllerCategorie implements ActionListener{
+public class ControllerCategorie implements ActionListener, MouseListener{
     private CategorieDAO catDAO;
     private CategorieVue catVue;
     private DefaultTableModel modelCat;
@@ -28,6 +30,7 @@ public class ControllerCategorie implements ActionListener{
         catVue = new CategorieVue();
         init();    
         catVue.getBtnAjouter().addActionListener(this);
+        catVue.getjTable2().addMouseListener(this);
         catVue.setVisible(true);
          
     }
@@ -75,5 +78,32 @@ public class ControllerCategorie implements ActionListener{
             
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        int ligne  = this.catVue.getjTable2().getSelectedRow();
+        this.catVue.getTxtIdCat().setText(modelCat.getValueAt(ligne, 0).toString());
+        this.catVue.getTxtLibelle().setText(modelCat.getValueAt(ligne,1).toString());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
