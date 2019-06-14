@@ -29,9 +29,14 @@ public class ControllerCategorie implements ActionListener, MouseListener{
         catDAO = new CategorieDAO();
         catVue = new CategorieVue();
         init();    
+        
         catVue.getBtnAjouter().addActionListener(this);
         catVue.getjTable2().addMouseListener(this);
         catVue.setVisible(true);
+        
+        catVue.getBtnModifier().addActionListener(this);
+        catVue.getBtnSupprimer().addActionListener(this);
+       
          
     }
     public ControllerCategorie(CategorieDAO catDAO, CategorieVue catVue) {
@@ -63,7 +68,7 @@ public class ControllerCategorie implements ActionListener, MouseListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-        
+        //pour l'ajout
         if (ae.getSource().equals(this.catVue.getBtnAjouter())) {
             Categorie cat = new Categorie();
             cat.setLibelle(this.catVue.getTxtLibelle().getText());
@@ -71,6 +76,40 @@ public class ControllerCategorie implements ActionListener, MouseListener{
             catDAO.addCategorie(cat);
             
             JOptionPane.showMessageDialog(null,"Enregistrement ok");
+            
+            //vider le champs libelle
+            this.catVue.getTxtLibelle().setText("");
+            init();
+            
+        }
+        //pour la modification
+        if (ae.getSource().equals(this.catVue.getBtnModifier())) {
+            
+          
+            int catSup  = this.catVue.getjTable2().getSelectedRow();
+            this.catVue.getTxtIdCat().setText(modelCat.getValueAt(ligne, 0).toString());
+            this.catVue.getTxtLibelle().setText(modelCat.getValueAt(ligne,1).toString());
+            
+            
+           /* catUp.setLibelle(this.catVue.getTxtLibelle().getText());
+            
+            catDAO.updateCategorie(catUp);
+            
+            JOptionPane.showMessageDialog(null,"Modification ok");
+            
+            //vider le champs libelle
+            this.catVue.getTxtLibelle().setText("");
+            init();*/
+            
+        }
+        // pour la suppression
+        if (ae.getSource().equals(this.catVue.getBtnSupprimer())) {
+            Categorie cat = new Categorie();
+            cat.setIdCat(Integer.parseInt(this.catVue.getTxtIdCat().getText()));
+            
+            catDAO.deleteCategorie(cat);
+            
+            JOptionPane.showMessageDialog(null,"Suppression ok");
             
             //vider le champs libelle
             this.catVue.getTxtLibelle().setText("");
