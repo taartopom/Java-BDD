@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 /*---------------------------------------------------------------*/
 /*implement de produitInterface
-*génération automatique de toutes les méthodes abstraites
+*generation automatique de toutes les méthodes abstraites
 */
 /*---------------------------------------------------------------*/
 public class ProduitDAO implements ProduitInterface{
@@ -49,15 +50,17 @@ public class ProduitDAO implements ProduitInterface{
                 Produit produits = new Produit();
                 produits.setIdProd(rs.getInt("idProd"));
                 produits.setNomProd(rs.getString("nomProd"));
-                produits.setDescrriptionProd(rs.getString("descriptionProd"));
+                produits.setDescriptionProd(rs.getString("descriptionProd"));
                 produits.setPrixProd(rs.getInt("prixProd"));
-                produits.setQutProd(rs.getInt("qutProd"));
-                produits.setCaProd(caProd);
+                produits.setQteProd(rs.getInt("qteProd"));
+                //reccuperation d'un objet 
+                produits.setCatProd(new Categorie(rs.getInt("idCat"), null));//c'est une clé étrangère dans notre bdd
                 
                 listProduits.add(produits);//ajout de l'objet catégorie à la liste
             }
         } 
         catch (SQLException e) {
+            //System.out.println(e.getMessage("Aucun produit trouvé"));
         }
     return listProduits;
     }  
@@ -72,10 +75,10 @@ public class ProduitDAO implements ProduitInterface{
             rs.first();
             produits.setIdProd(rs.getInt("idProd"));
             produits.setNomProd(rs.getString("nomProd"));
-            produits.setDescrriptionProd(rs.getString("descriptionProd"));
+            produits.setDescriptionProd(rs.getString("descriptionProd"));
             produits.setPrixProd(rs.getInt("prixProd"));
-            produits.setQutProd(rs.getInt("qutProd"));
-
+            produits.setQteProd(rs.getInt("qutProd"));
+            produits.setCatProd(new Categorie(rs.getInt("idCat"), null));
         } 
         catch (SQLException e) {
         }
@@ -84,14 +87,18 @@ public class ProduitDAO implements ProduitInterface{
     @Override
     public void addProduit(Produit prod) {
          try {
-           PreparedStatement ps = connex.prepareStatement("INSERT INTO produit (nomProd,descriptionProd,prixProd,qteProd) VALUE(?)");
+           PreparedStatement ps = connex.prepareStatement("INSERT INTO produit (nomProd,descriptionProd,prixProd,qteProd,idcat) VALUE(?,?,?,?,?)");
+           
            ps.setString(1, prod.getNomProd());
-           ps.setString(1,prod.getDescrriptionProd());
-           ps.setInt(1,prod.getQutProd());
-           ps.setDouble(1, prod.getPrixProd());
+           ps.setString(2,prod.getDescriptionProd());
+           ps.setDouble(3, prod.getPrixProd());
+           ps.setInt(4,prod.getQteProd());
+           ps.setInt(5, prod.getCatProd().getIdCat());
            
            ps.executeUpdate();
            ps.close();
+           
+             JOptionPane.showMessageDialog(null, "Enregistrement éfféctué avec succés");
        } catch (SQLException e) {
        }
     }
@@ -104,6 +111,8 @@ public class ProduitDAO implements ProduitInterface{
            
            ps.executeUpdate();
            ps.close();
+           
+           JOptionPane.showMessageDialog(null, "Modification effectuée avec succés");
        } catch (SQLException e) {
        }
     }
@@ -113,8 +122,8 @@ public class ProduitDAO implements ProduitInterface{
          try {
            PreparedStatement ps = connex.prepareStatement("UPDATE produit SET nomProd = ?,descriptionProd = ?,prixprod = ?,qteProd = ? WHERE idProd = ?");
            ps.setString(1, prod.getNomProd());
-           ps.setString(1,prod.getDescrriptionProd());
-           ps.setInt(1,prod.getQutProd());
+           ps.setString(1,prod.getDescriptionProd());
+           ps.setInt(1,prod.getQteProd());
            ps.setDouble(1, prod.getPrixProd());
            
            ps.executeUpdate();

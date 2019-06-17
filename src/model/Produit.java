@@ -31,12 +31,12 @@ public class Produit {
 /*---------------------------------------------------------------*/
  //Constructeurs
 /*---------------------------------------------------------------*/
-    public Produit(int idProd, String nomProd, String descrriptionProd, double prixProd, int qutProd) {
+    public Produit(int idProd, String nomProd, String descriptionProd, double prixProd, int qteProd) {
         this.idProd = idProd;
         this.nomProd = nomProd;
-        this.descriptionProd = descrriptionProd;
+        this.descriptionProd = descriptionProd;
         this.prixProd = prixProd;
-        this.qteProd = qutProd;
+        this.qteProd = qteProd;
     }
 
     public Produit() {
@@ -53,7 +53,7 @@ public class Produit {
         return nomProd;
     }
 
-    public String getDescrriptionProd() {
+    public String getDescriptionProd() {
         return descriptionProd;
     }
 
@@ -61,11 +61,11 @@ public class Produit {
         return prixProd;
     }
 
-    public int getQutProd() {
+    public int getQteProd() {
         return qteProd;
     }
 
-    public Categorie getCaProd() {
+    public Categorie getCatProd() {
         return catProd;
     }
 /*---------------------------------------------------------------*/
@@ -79,27 +79,27 @@ public class Produit {
         this.nomProd = nomProd;
     }
 
-    public void setDescrriptionProd(String descrriptionProd) {
-        this.descriptionProd = descrriptionProd;
+    public void setDescriptionProd(String descriptionProd) {
+        this.descriptionProd = descriptionProd;
     }
 
     public void setPrixProd(double prixProd) {
         this.prixProd = prixProd;
     }
 
-    public void setQutProd(int qutProd) {
-        this.qteProd = qutProd;
+    public void setQteProd(int qutProd) {
+        this.qteProd = qteProd;
     }
 
-    public void setCaProd(Categorie caProd) {
-        this.catProd = caProd;
+    public void setCatProd(Categorie caProd) {
+        this.catProd = catProd;
     }
 /*---------------------------------------------------------------*/
 /*To string*/
 /*---------------------------------------------------------------*/
     @Override
     public String toString() {
-        return "Produit{" + "idProd=" + idProd + ", nomProd=" + nomProd + ", descrriptionProd=" + descriptionProd + ", prixProd=" + prixProd + ", qutProd=" + qteProd + ", caProd=" + catProd + '}';
+        return "Produit{" + "idProd=" + idProd + ", nomProd=" + nomProd + ", descriptionProd=" + descriptionProd + ", prixProd=" + prixProd + ", qteProd=" + qteProd + ", catProd=" + catProd + '}';
     }
     
 }
