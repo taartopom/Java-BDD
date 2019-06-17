@@ -1,3 +1,4 @@
+
 /*---------------------------------------------------------------*/
 /*Structure de la page
 *  le CRUD
@@ -14,21 +15,11 @@ import java.util.List;
 /*---------------------------------------------------------------*/
 //CRUD
 /*---------------------------------------------------------------*/
-public interface CategorieInterface {
-    public List<Categorie>getAllCategorie();
-
-   /**
-    *
-    * @param idCat
-    * @return
-    */
-   public Categorie getOneCategorie(int idCat);
-
-   /**
-    *
-    * @param cat
-    */
-   public void addCategorie(Categorie cat);
-   public void deleteCategorie(Categorie cat);
-   public void updateCategorie(Categorie cat);
+public interface ProduitInterface {
+    public List<Produit> getAllProduit();//retourne de la liste des produits
+    public void addProduit(Produit prod);
+    public void deleteProduit(Produit prod);
+    public void updateProduit(Produit prod);
+    public Produit getOneProduit(int idProd);//retourne un seul produit
+    
 }

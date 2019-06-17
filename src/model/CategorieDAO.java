@@ -1,8 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*---------------------------------------------------------------*/
+/*Structure de la page
+*1- implement de l'interface Categorie interface
+  1.1 - Connection à la BDD
+  1.2 - appel de toutes les méthodes
+*/
+/*---------------------------------------------------------------*/
 package model;
 
 import java.sql.Connection;
@@ -17,24 +19,35 @@ import java.util.List;
  *
  * @author Administrateur
  */
+
+/*---------------------------------------------------------------*/
+/*implement de produitInterface
+*génération automatique de toutes les méthodes abstraites
+*/
+/*---------------------------------------------------------------*/
 public class CategorieDAO implements CategorieInterface{
-    // Création d'une liste de catégorie pour stocker les enregistrement de la table catégorie
+    
+    //1.1 - Connection à la bdd
+/*----------------------------------------------------------------*/
+    
     Connection connex = Connexion.getConnexion();
+    
+    // 1.2 - les méthodes
+/*----------------------------------------------------------------*/
     @Override
-   public List<Categorie> getAllCategorie() {
+    public List<Categorie> getAllCategorie() {
        List<Categorie> listCategories = new ArrayList<>();
        
         try {
             Statement stmt = connex.createStatement();
             String requete = "SELECT * FROM categorie";
-/* rs est un tableau qui reccupere les éléments demandé dans la requête*/
-            ResultSet rs = stmt.executeQuery(requete);
+            ResultSet rs = stmt.executeQuery(requete);//rs est un tableau qui reccupere les éléments demandé dans la requête
             while (rs.next()) {
                 Categorie cat = new Categorie();
                 cat.setIdCat(rs.getInt("idCat"));
                 cat.setLibelle(rs.getString("libelle"));
-                //ajout de l'objet catégorie à la liste
-                listCategories.add(cat);
+                
+                listCategories.add(cat);////ajout de l'objet catégorie à la liste
             }
         } catch (SQLException e) {
         }
@@ -63,7 +76,7 @@ public class CategorieDAO implements CategorieInterface{
    @Override
    public void addCategorie(Categorie cat) {
        try {
-           PreparedStatement ps = connex.prepareStatement("INSERT INTO Categorie (libelle) VALUE(?)");
+           PreparedStatement ps = connex.prepareStatement("INSERT INTO categorie (libelle) VALUE(?)");
            ps.setString(1, cat.getLibelle());
            ps.executeUpdate();
            ps.close();
@@ -74,7 +87,7 @@ public class CategorieDAO implements CategorieInterface{
    @Override
    public void deleteCategorie(Categorie cat) {
        try {
-           PreparedStatement ps = connex.prepareStatement("DELETE FROM Categorie WHERE idCat = ?" );
+           PreparedStatement ps = connex.prepareStatement("DELETE FROM categorie WHERE idCat = ?" );
            ps.setInt(1, cat.getIdCat());
            ps.executeUpdate();
            ps.close();
@@ -85,7 +98,7 @@ public class CategorieDAO implements CategorieInterface{
    @Override
    public void updateCategorie(Categorie cat) {
        try {
-           PreparedStatement ps = connex.prepareStatement("UPDATE Categorie SET libelle = ? WHERE idCat = ?");
+           PreparedStatement ps = connex.prepareStatement("UPDATE categorie SET libelle = ? WHERE idCat = ?");
            ps.setString(1, cat.getLibelle());
            ps.setInt(2,cat.getIdCat());
            
