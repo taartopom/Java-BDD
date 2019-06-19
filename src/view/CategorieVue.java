@@ -6,9 +6,9 @@
 /*-----------------------------------------------------------------*/ 
 /* Les élément de la page
 *1- vue créée sur l'IDE netBeans
-*2- accesseurs
-*3- mutateurs
-*4- déclaration de variable
+*2- déclaration de variable
+*3- accesseur
+*4- mutateur
 */
 /*-----------------------------------------------------------------*/ 
 package view;

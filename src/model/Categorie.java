@@ -1,5 +1,4 @@
 
-/*----------------------------------------------------------------*/
 /*Structure de la page
 *1- attribut
 *2- constructeur
@@ -32,6 +31,10 @@ public class Categorie {
 
     public Categorie() {
    }
+
+    public Categorie(int idCat) {
+        this.idCat = idCat;
+    }
    
     public Categorie(String libelle) {
         this.libelle = libelle;

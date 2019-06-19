@@ -1,4 +1,3 @@
-/*---------------------------------------------------------------*/
 /*Structure de la page
 *1- implement de l'interface Categorie interface
   1.1 - Connection à la BDD

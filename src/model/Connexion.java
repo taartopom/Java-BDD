@@ -1,4 +1,6 @@
-
+/*Class permettant la connexion à la BDD mysql
+*/
+/*--------------------------------------------------------------*/
 package model;
 
 import java.sql.Connection;

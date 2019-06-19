@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  */
 
 /*---------------------------------------------------------------*/
-/*implement de produitInterface
+/*Implement de produitInterface
 *generation automatique de toutes les méthodes abstraites
 */
 /*---------------------------------------------------------------*/
@@ -119,19 +119,26 @@ public class ProduitDAO implements ProduitInterface{
 
     @Override
     public void updateProduit(Produit prod) {
-         try {
-           PreparedStatement ps = connex.prepareStatement("UPDATE produit SET nomProd = ?,descriptionProd = ?,prixprod = ?,qteProd = ? WHERE idProd = ?");
-           ps.setString(1, prod.getNomProd());
-           ps.setString(1,prod.getDescriptionProd());
-           ps.setInt(1,prod.getQteProd());
-           ps.setDouble(1, prod.getPrixProd());
+        try{
+             PreparedStatement ps = connex.prepareStatement("UPDATE produit"
+                   + "set nomProd=?,descriptionProd=?,prixProd=?,"
+                   + "qteProd = ?,idCat=? where idProd=? )");
+            //passage de paramètre à la requête préparée
+            ps.setString(1,prod.getNomProd());
+            ps.setString(2,prod.getDescriptionProd());
+            ps.setDouble(3,prod.getPrixProd());
+            ps.setInt(4,prod.getQteProd());
+            ps.setInt(5, prod.getCatProd().getIdCat());
+            ps.setInt(6, prod.getIdProd());
            
-           ps.executeUpdate();
-           ps.close();
-       } catch (SQLException e) {
-       }
+            ps.executeUpdate();
+           
+            JOptionPane.showMessageDialog(null,"Enregistrement effectué avec succès");
+        }catch(SQLException e){
+            
+        }
+        
     }
-
+    }
    
 /*----------------------------------------------------------------*/
-}
